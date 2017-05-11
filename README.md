@@ -10,4 +10,4 @@ or @WFAlertsMods.
 
 ---
 
-This project is the successor to my WFAlerts-Tweets-to-SMS project found at <a href=https://github.com/TaurusSilver/WFAlerts-Tweets-to-SMS>This repo</a>.
+This project is the successor to my WFAlerts-Tweets-to-SMS project found at <a href=https://github.com/TaurusSilver/WFAlerts-Tweets-to-SMS>this repo</a>.
