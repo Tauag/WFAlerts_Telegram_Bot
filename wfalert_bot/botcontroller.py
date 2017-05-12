@@ -240,8 +240,10 @@ class BotController:
         use_alerts = alerts_list[:]
         for alert in use_alerts:
             alert_parts = alert.split("|")
-            if alert_parts[1] in bot_object.ignored_rewards:
-                use_alerts.remove(alert)
+            
+            for ignored_rewards in bot_object.ignored_rewards:
+                if ignored_rewards in alert_parts[1]:
+                    use_alerts.remove(alert)
 
         self.send_message(bot_object, self.alerts_as_string(use_alerts, True))
 
