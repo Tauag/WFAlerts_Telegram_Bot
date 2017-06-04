@@ -28,8 +28,15 @@ class BotController:
         if self.telegram_offset > 0:
             payload.update({"offset": self.telegram_offset})
 
-        # Only want the results, we can ignore the 200 Response
-        updates_json = json.loads(requests.get(update_url, params=payload).content)["result"]\
+        # Proceed if proper response obtained
+        response = requests.get(update_url, params=payload).content
+
+        if not json.loads(response)["ok"]:
+            # TODO: Log the error and the time it occurred
+            # Log ["error_code"] and ["description"]
+            return []
+
+        updates_json = json.loads(response)["result"]
 
         # Update the offset
         for entry in updates_json:
