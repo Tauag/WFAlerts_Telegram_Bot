@@ -29,13 +29,12 @@ class WFTwitterConsumer:
 
     def get_statuses(self, since, userid=WFALERTS_USER_ID, count=0):
         """
-        Returns json file with most recent tweets
+        Returns json file with most recent tweets and updates the offset to the newest message recieved
         :param since: The last tweet id to start polling from
         :param userid: The userid of the account to poll from
         :param count: Maximum number of tweets desired, by default 0 means no maximum
         :return: JSON file of tweets
         """
-
         payload = {"user_id": userid, "trim_user": "true", "include_rts": "false", "exclude_replies": "true"}
 
         if count > 0:
@@ -60,7 +59,6 @@ class WFTwitterConsumer:
         Time Leftover
         :return: List of alert strings
         """
-
         alert_list = []
         for entry in alert_json:
 
@@ -99,7 +97,6 @@ class WFTwitterConsumer:
         Returns a list of all current alerts
         :return: List of all current alerts
         """
-
         alerts_json = self.get_statuses(0)
         current_alerts_json = []
 

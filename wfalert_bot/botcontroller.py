@@ -22,7 +22,6 @@ class BotController:
         Long Polling
         :return: JSON object containing all updates
         """
-
         update_url = TELEGRAM_BOT_URL + "getUpdates"
         payload = {"timeout": "60", "allowed_updates": ["message"]}
 
@@ -35,7 +34,6 @@ class BotController:
         # Update the offset
         for entry in updates_json:
             # TODO: Log all incoming commands
-            print entry
             if int(entry["update_id"]) >= self.telegram_offset:
                 self.telegram_offset = entry["update_id"] + 1
 
@@ -48,7 +46,6 @@ class BotController:
         :param chat_id: The chat ID
         :return: The new WFAlertBot object
         """
-
         newbot = WFAlertBot(chat_id)
         self.bots.append(newbot)
         return newbot
@@ -59,7 +56,6 @@ class BotController:
         :param target_bot: The bot to be removed
         :return: True if bot with target ID exists and is removed, False otherwise
         """
-
         self.bots.remove(target_bot)
 
     def bot_has_id(self, chat_id):
@@ -79,20 +75,19 @@ class BotController:
         :param chat_id: Target chat ID
         :return: Target bot, None if it does not exist
         """
-
         for bot in self.bots:
             if chat_id == bot.chat_id:
                 return bot
         return None
 
-    def alerts_as_string(self, alert_list, add_time):
+    @staticmethod
+    def alerts_as_string(alert_list, add_time):
         """
         Converts alerts list to a HTML string for easy readability
         :param alert_list: The list of alerts
         :param add_time: True/False, indicates if time start and time end should be appended
         :return: HTML formatted string
         """
-
         retstring = ""
 
         for alert in alert_list:
@@ -108,14 +103,14 @@ class BotController:
 
         return retstring
 
-    def send_message(self, bot_object, message):
+    @staticmethod
+    def send_message(bot_object, message):
         """
         Sends a message to the chat with the ID number provided
         :param bot_object: The bot that holds the target chat ID
         :param message: The message in HTML format
         :return: True if successful, False otherwise
         """
-
         send_message_url = TELEGRAM_BOT_URL + "sendMessage"
         payload = {"chat_id": bot_object.chat_id, "text": message, "parse_mode": "HTML"}
 
@@ -130,7 +125,6 @@ class BotController:
         :param json_entry: The JSON-formatted command
         :return: True if successful, False otherwise
         """
-
         if "message" not in json_entry or "text" not in json_entry["message"]:
             return False
 
@@ -188,7 +182,6 @@ class BotController:
         Sends all current alerts to the user that requested it
         :param bot_object: The bot that holds the requesting chat ID
         """
-
         current_alerts = self.twitter_object.getallcurrentalerts()
         alert_string = self.alerts_as_string(current_alerts, False)
         if alert_string is not "":
@@ -201,7 +194,6 @@ class BotController:
         Sends the list of ignored rewards to the user that requested it
         :param bot_object: The bot that holds the requesting chat ID
         """
-
         if not bot_object.ignored_rewards:
             self.send_message(bot_object, "<b>There are no ignored rewards</b>")
         else:
@@ -212,22 +204,22 @@ class BotController:
 
             self.send_message(bot_object, send_string)
 
-    def add_ignore(self, bot_object, item):
+    @staticmethod
+    def add_ignore(bot_object, item):
         """
         Adds new item to the bot's ignore list
         :param bot_object: Target bot holding requester's chat ID
         :param item: Target item
         """
-
         bot_object.add_to_ignored_rewards(item)
 
-    def remove_ignore(self, bot_object, item):
+    @staticmethod
+    def remove_ignore(bot_object, item):
         """
         Removes target item from the bot's ignore list
         :param bot_object: Target bot holding requester's chat ID
         :param item: Target item
         """
-
         bot_object.remove_from_ignored_rewards(item)
 
     def send_alerts(self, bot_object, alerts_list):
@@ -236,11 +228,10 @@ class BotController:
         :param bot_object: Target bot
         :param alerts_list: List of new alerts
         """
-
         use_alerts = alerts_list[:]
         for alert in use_alerts:
             alert_parts = alert.split("|")
-            
+
             for ignored_rewards in bot_object.ignored_rewards:
                 if ignored_rewards in alert_parts[1]:
                     use_alerts.remove(alert)
@@ -249,7 +240,6 @@ class BotController:
 
     def main(self):
         """The main script"""
-
         while True:
             # First check for any new commands and act on them, at most this should only wait 1 minute
             updates = self.get_updates()
