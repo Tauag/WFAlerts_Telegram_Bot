@@ -33,6 +33,7 @@ class WFAlertBot:
         :param reward: The target reward to be removed
         :return: True if successful, False otherwise
         """
+
         if reward not in self.ignored_rewards:
             return False
         self.ignored_rewards.remove(reward)

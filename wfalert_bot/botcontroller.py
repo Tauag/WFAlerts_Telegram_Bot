@@ -180,7 +180,7 @@ class BotController:
             self.send_message(target_bot, "<b>Ordis thinks your face is a joke. Haha. Haha. \n...\n Sorry Operator, "
                                           "Ordis is not very good at jokes</b>")
         else:
-            self.send_message(target_bot, "<i>Ordis is very confused :( </i>")
+            self.send_message(target_bot, "<i>Ordis does not know how to process that command :( </i>")
 
         return True
 
