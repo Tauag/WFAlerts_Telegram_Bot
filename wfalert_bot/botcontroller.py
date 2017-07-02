@@ -1,8 +1,9 @@
 import requests
 import json
+import wfalert_bot.logger
 from config import tokens
 from twitter_consumer.wftwitterconsumer import WFTwitterConsumer
-from wfalertbot import WFAlertBot
+from wfalert_bot.wfalertbot import WFAlertBot
 
 TELEGRAM_BOT_URL = "https://api.telegram.org/bot" + tokens.BOT_TOKEN + "/"
 
@@ -239,6 +240,7 @@ class BotController:
         for alert in use_alerts:
             alert_parts = alert.split("|")
 
+            # Iterate through every bot instance and check if they ignore each reward, remove the ones that are ignored
             for ignored_rewards in bot_object.ignored_rewards:
                 if ignored_rewards in alert_parts[1]:
                     use_alerts.remove(alert)
