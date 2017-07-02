@@ -7,3 +7,7 @@ ACCESS_TOKEN_SECRET = "<Your Twitter Token Secret Here>"
 
 # Telegram Credentials
 BOT_TOKEN = "<Your Telegram Token Here>"
+
+# SQL Server Credentials
+SQL_USER = "<Your SQL Username Here>"
+SQL_PASSWORD = "<Your SQL Password Here>"
