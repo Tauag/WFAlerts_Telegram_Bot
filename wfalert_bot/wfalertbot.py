@@ -1,11 +1,26 @@
 class WFAlertBot:
     chat_id = 0
-    ignored_rewards = None
     wants_updates = False
+    ignored_rewards = None
 
-    def __init__(self, chatid):
+    def __init__(self, chatid, update_bool=False):
         self.chat_id = chatid
+        self.wants_updates = update_bool
         self.ignored_rewards = []
+
+    def __str__(self):
+        retstring = str(self.chat_id)
+
+        if self.wants_updates:
+            retstring += " wants updates and ignores "
+        else:
+            retstring += " does not want updates and ignores: "
+
+        if not self.ignored_rewards:
+            for item in self.ignored_rewards:
+                retstring += "[" + item + "] "
+        else:
+            retstring += "None"
 
     def toggle_wants_updates_on(self):
         """

@@ -1,9 +1,9 @@
 import requests
 import json
-import wfalert_bot.logger
 from config import tokens
 from twitter_consumer.wftwitterconsumer import WFTwitterConsumer
 from wfalert_bot.wfalertbot import WFAlertBot
+from wfalert_bot.logger import Logger
 
 TELEGRAM_BOT_URL = "https://api.telegram.org/bot" + tokens.BOT_TOKEN + "/"
 
@@ -11,10 +11,12 @@ TELEGRAM_BOT_URL = "https://api.telegram.org/bot" + tokens.BOT_TOKEN + "/"
 class BotController:
     bots = []
     twitter_object = None
+    logger_object = None
     telegram_offset = 0
 
     def __init__(self):
         self.twitter_object = WFTwitterConsumer()
+        self.logger_object = Logger()
         self.get_updates()
 
     def get_updates(self):
