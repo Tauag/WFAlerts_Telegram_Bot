@@ -22,6 +22,8 @@ class WFAlertBot:
         else:
             retstring += "None"
 
+        return retstring
+
     def toggle_wants_updates_on(self):
         """
         Toggles if the chat wants to continue to be updated with warframe alerts to True
