@@ -15,3 +15,7 @@ This project is the successor to my WFAlerts-Tweets-to-SMS project found at <a h
 Feel free to add @warframe_alerts_bot to your Telegram chats!
 
 The requirements.txt file contains additional packages that are needed to run this bot.
+
+---
+
+<b>This project is working as is, there will be no future updates</b>
